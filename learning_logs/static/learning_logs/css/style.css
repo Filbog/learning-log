@@ -1,0 +1,16 @@
+a{
+    text-decoration: none !important;
+}
+
+
+.form-group input {
+    font-size: 48px;  /* Change this to your desired font size */
+}
+
+.asteriskField {
+    display: none;
+}
+
+.form-label{
+    font-size: 18px;
+}
