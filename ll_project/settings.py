@@ -142,6 +142,7 @@ LOGIN_URL = "accounts:login"
 # # for local testing etc
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
 # personal email for pet project size - need to hide the email address and password in env vars
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

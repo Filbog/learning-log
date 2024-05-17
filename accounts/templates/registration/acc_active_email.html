@@ -1,0 +1,13 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+Please click on the link below to confirm your registration:
+
+http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}
+
+
+If you didn't register, please ignore this email.
+
+Thanks,
+Learning Log team
+{% endautoescape %}

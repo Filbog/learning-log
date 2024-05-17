@@ -2,24 +2,23 @@
 
 
 {% block page_header %}
-    <h1>Topics</h1>
+    Topics
 {% endblock page_header %}
 
 {% block content %}
 
-    <p>Topics</p>
 
     <div class="container">
-        <ul class="nav nav-tabs d-flex justify-content-center mt-4" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active px-4" id="user-topics-tab" data-bs-toggle="tab" href="#user-topics" role="tab"><h5 class="my-2">Your topics</h5></a>
+        <ul class="nav nav-tabs d-flex justify-content-center mt-4 " id="myTab" role="tablist">
+            <li class="nav-item" role="presentation" {% if not user.is_authenticated %} data-bs-toggle="tooltip" data-bs-placement="top" title="Log in to view your topics" {% endif %}>
+                <a class="nav-link {% if user.is_authenticated %}active {% else %} disabled {% endif %} px-4" id="user-topics-tab" data-bs-toggle="tab" href="#user-topics" role="tab"><h5 class="my-2 px-md-5">Your topics</h5></a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link px-4" id="public-topics-tab" data-bs-toggle="tab" href="#public-topics" role="tab"><h5 class="my-2">Public topics</h5></a>
+                <a class="nav-link px-4 {% if not user.is_authenticated %}active {% endif %}" id="public-topics-tab" data-bs-toggle="tab" href="#public-topics" role="tab"><h5 class="my-2 px-md-5">Public topics</h5></a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="user-topics" role="tabpanel">
+            <div class="tab-pane fade {% if user.is_authenticated %}show active{% endif %}" id="user-topics" role="tabpanel">
                 <ul class="list-group border-bottom pb-2 mb-4">
                     {% for topic in user_topics %}
                         <li class="list-group-item border-0">
@@ -30,7 +29,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="tab-pane fade" id="public-topics" role="tabpanel">
+            <div class="tab-pane fade {% if not user.is_authenticated %}show active{% endif %}" id="public-topics" role="tabpanel">
                 <!-- Loop through public_topics and display them -->
                 <ul class="list-group border-bottom pb-2 mb-4">
                     {% for topic in public_topics %}

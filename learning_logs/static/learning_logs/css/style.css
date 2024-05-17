@@ -1,10 +1,32 @@
-a{
-    text-decoration: none !important;
+/* Overriding Bootstrap's default color values */
+:root {
+    --primary: #faf7f7; /* Soft Purple */
+    --text-main: #333333; /* Dark Gray */
+    --secondary: #f1efef; /* White */
+    --link-color: #1E90FF; /* Vibrant Blue */
+  }
+
+body{
+    background-color: var(--primary);
+    color: var(--text-main)
 }
 
+.navbar{
+    background-color: var(--secondary);
+}
+
+p, li, h5 {
+    color: var(--text-main); /* Dark Gray */
+  }
+
+a{
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+}
 
 .form-group input {
-    font-size: 48px;  /* Change this to your desired font size */
+    font-size: 40px;  /* Change this to your desired font size */
 }
 
 .asteriskField {
@@ -12,5 +34,5 @@ a{
 }
 
 .form-label{
-    font-size: 18px;
+    font-size:18px;
 }

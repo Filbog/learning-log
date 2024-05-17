@@ -1,20 +1,23 @@
 {% extends 'learning_logs/base.html' %}
 
-{% block page_header %} <h1>{{ topic.text }}</h1> {% endblock page_header %}
+{% block page_header %}{{ topic.text }} {% endblock page_header %}
 
 {% block content %}
 
+{% if user.is_authenticated and user == topic.owner %}
 <p> <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a> </p>
-
+{% endif %}
 
 
     {% for entry in entries %}
     <div class="card mb-3">
         <h4 class="card-header">
             {{ entry.date_added|date:'M d, Y H:i' }}
+            {% if user.is_authenticated and user == topic.owner %}
             <small class="ms-2"><a href="{% url 'learning_logs:edit_entry' entry.id %}">
                 edit entry
             </a></small>
+            {% endif %}
         </h4>
         <div class="card-body">
             {{ entry.text|linebreaks }}
