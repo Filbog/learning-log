@@ -68,13 +68,11 @@ def activate(request, uidb64, token):
         if default_token_generator.check_token(user, token):
             user.is_active = True
             user.save()
-            return HttpResponse(
-                "Thank you for your email confirmation. Now you can login your account."
-            )
+            return render(request, "registration/email_confirmation_successful.html")
         else:
-            return HttpResponse("Activation link is invalid!")
+            return render(request, "registration/activation_link_invalid.html")
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        return HttpResponse("Activation link is invalid!")
+        return render(request, "registration/activation_link_invalid.html")
 
 
 # custom templates for password reset so that their style is consistent with the rest of the app

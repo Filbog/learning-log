@@ -4,6 +4,8 @@ FROM python:${PYTHON_VERSION}
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV EMAIL_HOST_USER=${EMAIL_HOST_USER}
+ENV EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
 
 # install psycopg2 dependencies.
 RUN apt-get update && apt-get install -y \
@@ -23,6 +25,7 @@ RUN set -ex && \
 COPY . /code
 
 ENV SECRET_KEY "vbmJy5EeecwbuQgbAw0ruJ6lBywqK9xYTbfIgp5bHHYEMdgI4s"
+
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
