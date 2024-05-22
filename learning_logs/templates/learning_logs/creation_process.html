@@ -1,0 +1,20 @@
+{% extends "learning_logs/base.html" %}
+{% block title %}Edit Entry {% endblock title %}
+
+{% block content %}
+
+
+    <h2>Creation Process for Learning Log and Technologies Used</h2>
+    <br>
+
+    <h4>Idea</h4>
+    <p>The idea behind the app comes from Eric Matthews's <strong><i>Python Crash Course</i></strong>, where we start building basic app functionality from scratch. I've expanded upon the existing project, adding more flexibility in the topic creation (making it public - available to all users, or private - available only to the topic's creator). I've also added e-mail sending protocols so that the registration is only complete upon clicking in a confirmation link, and also making Password Reset possible thanks to the email functionality.</p>
+    <h4>Backend</h4>
+    <p>For backend I've used Django which can be overwhelming, but extremely reliable framework for building backend and APIs. I've used both class-based generic views and function-based views. I've also extended forms to for example accomodate for required email during registration, to receive the confirmation link.</p>
+    <h4>Frontend</h4>
+    <p>I wanted to keep the app minimalistic and without unnecessary distractions, so Django's templates were a perfect choice. For styling and layout I've used Bootstrap 5. I've also used Django Crispy Forms for form handling.. </p>
+    <h4>Devops/Deployment</h4>
+    <p>This aspect of development was by far the most daunting, but also incredibly satisfying upon finishing and seeing the app live on the Internet for everyone to see and use. Environs was my choice to handle environment variables. To serve static files in production, I've used Whitenoise package. As a deployment platform, I went with <strong>FlyIO</strong>. Their PaaS is reliable most of the time, fairly straightforward and not brutally expensive. Fly.io also makes it easy to create and connect to a PostgreSQL cluster.</p>
+
+
+{% endblock content %}
