@@ -36,3 +36,12 @@ a{
 .form-label{
     font-size:18px;
 }
+
+
+.btn-primary {
+    background: #6ca0ee;
+}
+
+.btn-success {
+    background-color: #3cab77;
+}

@@ -32,12 +32,14 @@
                 Show/hide comments
             </button>
             <div class="comments-container collapse" id="collapse{{ entry.id }}">
+                {% if user.is_authenticated %}
                 <form method="post" action="{% url 'learning_logs:add_comment' entry.id %}">
                     {% csrf_token %}
                     {{ comment_forms|get_item:entry.id|crispy }}
 
-                    <button class="btn" type="submit">Add comment</button>
+                    <button class="btn btn-primary" type="submit">Add comment</button>
                 </form>
+                {% endif %}
                 {% for comment in entry.comment_set.all %}
                 <p>
                     <span class="fw-bold">{{ comment.author }}</span>
