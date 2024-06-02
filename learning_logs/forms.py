@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Topic, Entry
+from .models import Topic, Entry, Comment
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
@@ -22,3 +22,12 @@ class EntryForm(forms.ModelForm):
         fields = ["text"]
         labels = {"text": ""}
         # widgets = {'text': forms.Textarea(attrs={'cols': 80})}
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["comment"]
+        # widgets = {
+        #     "comment": forms.Textarea(attrs={"rows": 3, "cols": 40}),
+        # }

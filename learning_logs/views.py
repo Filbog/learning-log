@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
 from .models import Topic, Entry
-from .forms import TopicForm, EntryForm
+from .forms import TopicForm, EntryForm, CommentForm
 
 
 def check_topic_owner(topic, user):
@@ -34,7 +34,13 @@ def topic(request, topic_id):
     if topic.public == False:
         check_topic_owner(topic, request.user)
     entries = topic.entry_set.order_by("-date_added")
-    context = {"topic": topic, "entries": entries}
+    comment_forms = {entry.id: CommentForm() for entry in entries}
+    print(comment_forms)
+    context = {
+        "topic": topic,
+        "entries": entries,
+        "comment_forms": comment_forms,
+    }
     return render(request, "learning_logs/topic.html", context)
 
 
@@ -92,3 +98,31 @@ def edit_entry(request, entry_id):
 
     context = {"entry": entry, "form": form, "topic": topic}
     return render(request, "learning_logs/edit_entry.html", context)
+
+
+@login_required
+def add_comment(request, entry_id):
+    entry = get_object_or_404(Entry, id=entry_id)
+    print(entry.id)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        print(form)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.entry = entry
+            comment.author = request.user
+            comment.save()
+            return redirect("learning_logs:topic", topic_id=entry.topic.id)
+        else:
+            # If the form is invalid, re-render the topic page with the form errors
+            topic = entry.topic
+            entries = topic.entry_set.order_by("-date_added")
+            comment_forms = {entry.id: CommentForm() for entry in entries}
+            comment_forms[entry.id] = form  # Include the invalid form in the context
+            context = {
+                "topic": topic,
+                "entries": entries,
+                "comment_forms": comment_forms,
+            }
+            return render(request, "learning_logs/topic.html", context)

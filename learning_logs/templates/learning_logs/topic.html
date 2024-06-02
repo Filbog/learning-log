@@ -1,4 +1,8 @@
 {% extends 'learning_logs/base.html' %}
+{% load crispy_forms_tags %}
+{% load custom_filters %}
+
+
 {% block title %}Topic Page{% endblock title %}
 
 {% block page_header %}{{ topic.text }} {% endblock page_header %}
@@ -23,6 +27,28 @@
         <div class="card-body">
             {{ entry.text|linebreaks }}
         </div>
+        <div class="card-footer">
+            <button class="btn btn-primary" data-bs-toggle="collapse" href="#collapse{{ entry.id }}" aria-expanded="false" aria-controls="collapse{{ entry.id }}">
+                Show/hide comments
+            </button>
+            <div class="comments-container collapse" id="collapse{{ entry.id }}">
+                <form method="post" action="{% url 'learning_logs:add_comment' entry.id %}">
+                    {% csrf_token %}
+                    {{ comment_forms|get_item:entry.id|crispy }}
+
+                    <button class="btn" type="submit">Add comment</button>
+                </form>
+                {% for comment in entry.comment_set.all %}
+                <p>
+                    <span class="fw-bold">{{ comment.author }}</span>
+                    <span class="fw-lighter">{{ comment.date_added }}</span>
+                </p>
+                <p class="mx-3">{{ comment.comment }}</p>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
     </div>
     {% empty %}
     <p>No entries for this topic yet</p>

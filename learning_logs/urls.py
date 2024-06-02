@@ -17,4 +17,5 @@ urlpatterns = [
         TemplateView.as_view(template_name="learning_logs/creation_process.html"),
         name="about",
     ),
+    path("add_comment/<int:entry_id>/", views.add_comment, name="add_comment"),
 ]
