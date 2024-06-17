@@ -63,7 +63,7 @@ This project is built on top of the one covered in Eric Matthew's book, _Python 
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/your-repo.git
+git clone https://github.com/Filbog/learning-log.git
 cd your-repo
 ```
 ### Create and Activate a Virtual Environment
